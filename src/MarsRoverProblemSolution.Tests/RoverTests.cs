@@ -21,7 +21,7 @@ namespace MarsRoverProblemSolution.Tests
             //Act
 
             //Assert
-            Assert.Throws<Exception>(() => new Rover(plateau, startPoints));
+            Assert.Throws<Exception>(() => new Rover(startPoints));
         }
 
         [Theory]
@@ -32,7 +32,8 @@ namespace MarsRoverProblemSolution.Tests
         {
             //Arrange
             Plateau plateau = new Plateau("5 5");
-            IRover rover = new Rover(plateau, "0 0 W");
+            Rover rover = new Rover( "0 0 W");
+            plateau.AddNewRover(rover);
 
             //Act
 
@@ -47,7 +48,8 @@ namespace MarsRoverProblemSolution.Tests
         {
             //Arrange
             Plateau plateau = new Plateau("5 5");
-            IRover rover = new Rover(plateau, "2 2 W");
+            Rover rover = new Rover("2 2 W");
+            plateau.AddNewRover(rover);
 
             //Act
 
@@ -60,7 +62,8 @@ namespace MarsRoverProblemSolution.Tests
         {
             //Arrange
             Plateau plateau = new Plateau("5 5");
-            Rover rover = new Rover(plateau, "1 2 N");
+            Rover rover = new Rover( "1 2 N");
+            plateau.AddNewRover(rover);
             rover.RunCommands("R");
 
             //Act
@@ -75,7 +78,8 @@ namespace MarsRoverProblemSolution.Tests
         {
             //Arrange
             Plateau plateau = new Plateau("5 5");
-            Rover rover = new Rover(plateau, "1 2 N");
+            Rover rover = new Rover("1 2 N");
+            plateau.AddNewRover(rover);
             rover.RunCommands("L");
 
             //Act
@@ -90,7 +94,8 @@ namespace MarsRoverProblemSolution.Tests
         {
             //Arrange
             Plateau plateau = new Plateau("5 5");
-            Rover rover = new Rover(plateau, "1 2 N");
+            Rover rover = new Rover("1 2 N");
+            plateau.AddNewRover(rover);
             rover.RunCommands("M");
 
             //Act
@@ -105,7 +110,8 @@ namespace MarsRoverProblemSolution.Tests
         {
             //Arrange
             Plateau plateau = new Plateau("5 5");
-            Rover rover = new Rover(plateau,"1 2 N");
+            Rover rover = new Rover("1 2 N");
+            plateau.AddNewRover(rover);
             rover.RunCommands("LMLMLMLMM");
 
             //Act
@@ -120,7 +126,8 @@ namespace MarsRoverProblemSolution.Tests
         {
             //Arrange
             Plateau plateau = new Plateau("5 5");
-            Rover rover = new Rover(plateau, "3 3 E");
+            Rover rover = new Rover("3 3 E");
+            plateau.AddNewRover(rover);
             rover.RunCommands("MMRMMRMRRM");
 
             //Act
@@ -128,6 +135,21 @@ namespace MarsRoverProblemSolution.Tests
 
             //Assert
             Assert.Equal("5 1 E", result);
+        }
+
+        [Fact]
+        public void When_NewRoverFallDownToExistingRover_ThrowInvalidStartPointException()
+        {
+            //Arrange
+            Plateau plateau = new Plateau("5 5");
+            plateau.AddNewRover("3 3 E")
+                    .RunCommands("MM");
+
+            //Act
+            var rover = new Rover("5 3 E");
+            
+            //Assert            
+            Assert.Throws<Exception>(() => plateau.AddNewRover(rover));
         }
     }
 }

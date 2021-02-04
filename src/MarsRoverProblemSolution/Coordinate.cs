@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace MarsRoverProblemSolution.Infrastructure
+﻿namespace MarsRoverProblemSolution.Infrastructure
 {
     public class Coordinate
     {
@@ -13,6 +9,16 @@ namespace MarsRoverProblemSolution.Infrastructure
         {
             X = x;
             Y = y;
+        }
+
+        public override bool Equals(object j)
+        {
+            Coordinate c = (Coordinate)j;
+            if (c.X == X && c.Y == Y)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

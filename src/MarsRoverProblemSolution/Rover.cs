@@ -19,18 +19,26 @@ namespace MarsRoverProblemSolution.Infrastructure
             }
         }
 
-        public Rover(Plateau plateau,string startPoints)
+        public Rover(string startPoints)
         {
-            Plateau = plateau;
             SetStartPosition(startPoints);
         }
        
+        /// <summary>
+        /// entry a new command to rover.
+        /// </summary>
+        /// <param name="commands"></param>
         public void RunCommands(string commands)
         {
             var validation = new RunCommandsValidation().Validate(commands);
             if (!validation.IsValid)
             {
                 throw new Exception(validation.Errors.Select(a => a.ErrorMessage).FirstOrDefault());
+            }
+
+            if (this.Plateau == null)
+            {
+                throw new Exception("Rover have to assign a plateau!");
             }
 
             foreach (var command in commands)
@@ -40,6 +48,10 @@ namespace MarsRoverProblemSolution.Infrastructure
             }
         }
 
+        /// <summary>
+        /// set start positions from string input to rover.
+        /// </summary>
+        /// <param name="positionInput"></param>
         private void SetStartPosition(string positionInput)
         {
             var validation = new RoverPositionValidation().Validate(positionInput);

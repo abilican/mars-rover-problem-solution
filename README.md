@@ -1,3 +1,6 @@
+# Before Run Project
+Possible situations are written as a test case. Please run test project and see results. Also you can add new tests or new cases.
+
 # Mars Rovers
 A squad of robotic rovers are to be landed by NASA on a plateau on Mars. This plateau, which is curiously rectangular, must be navigated by the rovers so that their on-board cameras can get a complete view of the surrounding terrain to send back to Earth.
 
